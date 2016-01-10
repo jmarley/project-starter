@@ -1,0 +1,41 @@
+= My Project Starter
+:icons: font
+:source-highlighter: pygments
+
+Basically, I'm tired of having a million different projects with different file
+structures and files in weird locations. So I'm going to start creating all my
+projects going forward with this script and project structure to help keep me
+organized
+
+== Build File structure
+.Prereq's
+. Full directory path
+. Project name
+. Number in cluster
+. Hostname for cluster
+
+.Build
+[source,bash]
+----
+$ /home/jmarley/projects/project\ starter/project_starter.sh
+----
+
+NOTE: This will create the basic file structure for my project
+
+
+== Build clustered nodes
+
+.Copy the latest fedora cloud image
+
+[source,bash]
+----
+$ cp ~/applications/linux/fedora-cloud/installers/<image name> ./<project home>/images/
+----
+
+TODO, I want to bass this off of cloud-init and fedora atomic
+
+
+
+. number 1
+
+. www.localhost.com[mylinks]

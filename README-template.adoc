@@ -1,0 +1,17 @@
+= My Project Starter
+:icons: font
+:source-highlighter: pygments
+
+into blob
+
+== main section
+.sub section
+. bullet
+
+.Build
+[source,bash]
+----
+$ code example
+----
+
+NOTE: example of a note

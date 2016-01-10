@@ -1,0 +1,12 @@
+#!/bin/bash
+
+server01=
+server01_ip=
+server02=
+server02_ip=
+
+username=
+ssh_key=
+
+alias ${server01}="ssh -i ${ssh_key} ${user_name}@${server01_ip}"
+alias ${server02}="ssh -i ${ssh_key} ${user_name}@${server02_ip}"

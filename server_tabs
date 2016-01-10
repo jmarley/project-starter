@@ -1,0 +1,5 @@
+title: master ;; command: /usr/bin/ssh -i /home/jmarley/.ssh/id_rsa.pub fedora@192.168.122.12 ;; separate: 
+title: minion01 ;; command: /usr/bin/ssh -i /home/jmarley/.ssh/id_rsa.pub fedora@192.168.122.209 ;; separate:
+title: minion02 ;; command: /usr/bin/ssh -i /home/jmarley/.ssh/id_rsa.pub fedora@192.168.122.52  ;; separate:
+title: minion03 ;; command: /usr/bin/ssh -i /home/jmarley/.ssh/id_rsa.pub fedora@192.168.122.103 ;; separate:
+title: minion04 ;; command: /usr/bin/ssh -i /home/jmarley/.ssh/id_rsa.pub fedora@192.168.122.122 ;; separate:
