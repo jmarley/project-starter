@@ -1,3 +1,5 @@
+# This file is no longer valid since the project starter script builds
+# automatically
 #!/bin/bash
 
 server01=

@@ -1,3 +1,6 @@
+# This file is no longer valid since the project starter script builds
+# automatically
+
 server01=
 server02=
 

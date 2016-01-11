@@ -14,4 +14,30 @@ into blob
 $ code example
 ----
 
+.Start server cluster
+[source,bash]
+----
+$ code example
+----
+
+.Bounce server cluster
+[source,bash]
+----
+$ code example
+----
+
+.Shutdown server cluster
+[source,bash]
+----
+$ code example
+----
+
+.Alias' for server cluster
+After the cluster is created we will need to get the ips for each node in the
+cluster and then apply them to the alias file. Then add the alias file to
+~/.bashrc file
+
+.Open Cluster in Terminal windows
+NOTE: I have this manually done at the moment and need to rework the script
+
 NOTE: example of a note

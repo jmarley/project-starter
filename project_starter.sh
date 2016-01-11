@@ -50,9 +50,46 @@ mkdir -p $1/$2/expenses
 mkdir -p $1/$2/cluster
 mkdir -p $1/$2/scripts
 
-#TODO test script below
-COUNTER=0
-while [ $COUNTER -lt $3 ]; do
+# Create Readme
+cp /home/jmarley/projects/project\ starter/README-template.adoc $1/$2/README.adoc
+
+# create bounce server script
+/bin/cat <<EOF >> $1/$2/scripts/bounce_cluster.sh
+#!/bin/bash
+# bounce server
+EOF
+chmod +x $1/$2/scripts/bounce_cluster.sh
+
+# create shutdown server script
+/bin/cat <<EOF >> $1/$2/scripts/shutdown_cluster.sh
+#!/bin/bash
+# shutdown server
+EOF
+chmod +x $1/$2/scripts/shutdown_cluster.sh
+
+# create start server script
+/bin/cat <<EOF >> $1/$2/scripts/start_cluster.sh
+#!/bin/bash
+# start server
+EOF
+chmod +x $1/$2/scripts/shutdown_cluster.sh
+
+# create ssh alias commands
+/bin/cat <<EOF >> $1/$2/scripts/$2_ssh_alias
+#!/bin/bash
+
+# username for ssh key
+username=
+
+# ssh key directory
+ssh_key=
+
+# ssh alias server
+EOF
+chmod +x $1/$2/scripts/shutdown_cluster.sh
+
+COUNTER=1
+while [ $COUNTER -eq $3 ]; do
   #make directory e.g., cluster/hostname01/images
   mkdir -p $1/$2/cluster/${4}0${3}/images
   mkdir -p $1/$2/cluster/${4}0${3}/iso
@@ -65,14 +102,39 @@ while [ $COUNTER -lt $3 ]; do
   cp /home/jmarley/projects/project\ starter/meta-data \
   $1/$2/cluster/${4}0${COUNTER}
 
+  #add the hostname of the server to the meta-data file
+  sed -i "s/<hostname>/${4}0${COUNTER}/" $1/$2/cluster/${4}0${COUNTER}/meta-data
+
+  #add the hostname of the server to the meta-data file
+  sed -i "s/<instance-id>/$2-${4}0${COUNTER}/" $1/$2/cluster/${4}0${COUNTER}/meta-data
+
+  # add server bounce commands
+  /bin/cat <<EOF >> $1/$2/scripts/bounce_cluster.sh
+  virsh destroy ${4}0${COUNTER}
+  sleep 5
+  virsh start ${4}0${COUNTER}
+EOF
+
+  # add server shutdown commands
+  /bin/cat <<EOF >> $1/$2/scripts/shutdown_cluster.sh
+  virsh shutdown ${4}0${COUNTER}
+EOF
+
+  # add server start commands
+  /bin/cat <<EOF >> $1/$2/scripts/start_cluster.sh
+  virsh start ${4}0${COUNTER}
+EOF
+
+  # create ssh alias commands
+  /bin/cat <<EOF >> $1/$2/scripts/$2_ssh_alias
+  ${4}0${COUNTER}_ip=
+  # example
+  # alias ${4}0${COUNTER}="ssh -i ${ssh_key} ${user_name}@${4}0${COUNTER}_ip"'
+EOF
+
   #TODO update loop to add records to base script files
   let COUNTER=COUNTER+1
 done
 
 #copy bounce script
-cp /home/jmarley/projects/project\ starter/bounce_servers.sh  $1/$2/workspace/scripts/bounce_cluster.sh
-cp /home/jmarley/projects/project\ starter/server_tabs \$1/$2/workspace/scripts
-cp /home/jmarley/projects/project\ starter/shutdown_servers.sh $1/$2/workspace/scripts
-cp /home/jmarley/projects/project\ starter/start_servers.sh  $1/$2/workspace/scripts
-cp /home/jmarley/projects/project\ starter/ssh_alias $1/$2/workspace/scripts
-ssh_alias  start_servers.sh
+#cp /home/jmarley/projects/project\ starter/server_tabs $1/$2/scripts
