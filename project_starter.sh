@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#TODO checkout trello board.
 # path of new project
 if [ -z $1 ]; then
   echo "please add a path";
@@ -89,10 +90,10 @@ EOF
 chmod +x $1/$2/scripts/shutdown_cluster.sh
 
 COUNTER=1
-while [ $COUNTER -eq $3 ]; do
+while [ $COUNTER -le $3 ]; do
   #make directory e.g., cluster/hostname01/images
-  mkdir -p $1/$2/cluster/${4}0${3}/images
-  mkdir -p $1/$2/cluster/${4}0${3}/iso
+  mkdir -p $1/$2/cluster/${4}0${COUNTER}/images
+  mkdir -p $1/$2/cluster/${4}0${COUNTER}/iso
 
   #copy basic user data file over to directory
   cp /home/jmarley/projects/project\ starter/user-data \
@@ -100,7 +101,7 @@ while [ $COUNTER -eq $3 ]; do
 
   #copy basic meta data file over to directory
   cp /home/jmarley/projects/project\ starter/meta-data \
-  $1/$2/cluster/${4}0${COUNTER}
+  $1/$2/cluster/${4}0${COUNTER}/
 
   #add the hostname of the server to the meta-data file
   sed -i "s/<hostname>/${4}0${COUNTER}/" $1/$2/cluster/${4}0${COUNTER}/meta-data
@@ -110,29 +111,28 @@ while [ $COUNTER -eq $3 ]; do
 
   # add server bounce commands
   /bin/cat <<EOF >> $1/$2/scripts/bounce_cluster.sh
-  virsh destroy ${4}0${COUNTER}
-  sleep 5
-  virsh start ${4}0${COUNTER}
+virsh destroy ${4}0${COUNTER}
+sleep 5
+virsh start ${4}0${COUNTER}
 EOF
 
   # add server shutdown commands
   /bin/cat <<EOF >> $1/$2/scripts/shutdown_cluster.sh
-  virsh shutdown ${4}0${COUNTER}
+virsh shutdown ${4}0${COUNTER}
 EOF
 
   # add server start commands
   /bin/cat <<EOF >> $1/$2/scripts/start_cluster.sh
-  virsh start ${4}0${COUNTER}
+virsh start ${4}0${COUNTER}
 EOF
 
   # create ssh alias commands
   /bin/cat <<EOF >> $1/$2/scripts/$2_ssh_alias
-  ${4}0${COUNTER}_ip=
-  # example
-  # alias ${4}0${COUNTER}="ssh -i ${ssh_key} ${user_name}@${4}0${COUNTER}_ip"'
+${4}0${COUNTER}_ip=
+# example
+# alias ${4}0${COUNTER}="ssh -i ${ssh_key} ${user_name}@${4}0${COUNTER}_ip"'
 EOF
 
-  #TODO update loop to add records to base script files
   let COUNTER=COUNTER+1
 done
 

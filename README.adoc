@@ -17,24 +17,40 @@ organized
 .Build
 [source,bash]
 ----
-$ /home/jmarley/projects/project\ starter/project_starter.sh
+$ /home/jmarley/projects/project\ starter/project_starter.sh \
+<project-dir> <project-name> <number-in-cluster> <cluster-hostname>
 ----
 
 NOTE: This will create the basic file structure for my project
+WARNING: Please make sure that you are using the latest atomic container
 
 
 == Build clustered nodes
 
 .Copy the latest fedora cloud image
-
 [source,bash]
 ----
-$ cp ~/applications/linux/fedora-cloud/installers/<image name> ./<project home>/images/
+$ cp ~/applications/linux/fedora-cloud/installers/Fedora-Cloud-Atomic-23-20151030.x86_64.qcow2 ./cluster/ftp_minion01/images/Fedora-Cloud-Atomic-23-20151030-ftp_server.x86_64.qcow2
 ----
 
+.Update cloud-init file for what we want to include in the image (e.g. password, ssh pub key)
+[source,bash]
+----
+$ vim <project-dir>/<project-name>/cluster/<cluster-hostname>{number-in-cluster}/user-data
+----
 TODO, I want to bass this off of cloud-init and fedora atomic
 
+.Create isos for each cluster
+[source,bash]
+----
+$ genisoimage -output <cluster-dir>/iso/<iso-nam>.iso -volid cidata -joliet -rock user-data meta-data
+----
 
+.Add isos to kvm for each cluster member
+[source,bash]
+----
+$
+----
 
 . number 1
 

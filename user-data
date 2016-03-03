@@ -1,7 +1,7 @@
 #cloud-config
-password: atomic
+password: <add-password-here>
 ssh_pwauth: True
 chpasswd: { expire: False }
 
 ssh_authorized_keys:
- - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHuSSsPVYYq7FES80Z8rjxmqKgV2sOoec83W9vUcpnDbRKw8nFxXWyWC+SvRQitf5IRacbeORAI7/R2BBHvYJexnPj3hxn6SaXS2BEHTgw+7Foi+P7bVZVjJoe3Db87vnJeeoS2lyyII0oj8RBOamBMoRO9O/y/gT0VpoGxNNiYT4C+7ut9NS2b2N8xHrND7Y3oP1Ne00r+bJZeocqzij4dqp26HbipDaY4ZR/r/XziLxRKL0IaFYFlhuDd6xERef1fLu3iPYfZOuH6iaFGc8EK02lDrV7eMuStH8VF3RIjJztTlVOMRkPFxw5T9CVzV0tWiNc3je0Vw9mVj1dXkyB jmarley@gruffalo 
+ - <add-ssh-key-here>
